@@ -1,4 +1,8 @@
-import React from "react"
+import React, {
+	useState,
+	useEffect,
+	useRef,
+} from "react"
 import { useDispatch } from "react-redux"
 
 //Icons
@@ -10,13 +14,48 @@ import { handleAddFavs } from "../../actions/favs.action"
 //Styles
 import "./grid.styles.css"
 
-const Grid = ({ data, newFavData }) => {
-	console.log(data)
+const Grid = ({
+	data,
+	newFavData,
+	handleNextPage,
+}) => {
+	const [view, setView] = useState(false)
+	const containerRef = useRef(null)
 	const dispatch = useDispatch()
 
 	const handleAddFavData = () => {
 		dispatch(handleAddFavs(data, newFavData))
 	}
+
+	const callbackFunction = (entries) => {
+		// console.log(entries);
+		const [entry] = entries
+		setView(entry.isIntersecting)
+	}
+
+	const options = {
+		root: null,
+		rootMargin: "0px",
+		threshold: 1.0,
+	}
+
+	useEffect(() => {
+		if (data?.length > 29) {
+			const observer = new IntersectionObserver(
+				callbackFunction,
+				options
+			)
+			if (containerRef.current) {
+				observer.observe(containerRef.current)
+			}
+		}
+	}, [containerRef, options, data])
+
+	useEffect(() => {
+		if (view) {
+			handleNextPage()
+		}
+	}, [view, handleNextPage])
 
 	return (
 		<>
@@ -39,6 +78,9 @@ const Grid = ({ data, newFavData }) => {
 					</div>
 				</div>
 			</div>
+			<div
+				ref={containerRef}
+				style={{ height: "20px" }}></div>
 		</>
 	)
 }

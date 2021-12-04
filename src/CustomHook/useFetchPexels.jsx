@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 
 export const useFetchPexels = (url) => {
 	const [data, setData] = useState([])
-
+	const [nextPage, setNextPage] = useState("")
 	useEffect(() => {
 		const handleFetchData = async () => {
 			const response = await fetch(url, {
@@ -13,11 +13,12 @@ export const useFetchPexels = (url) => {
 			})
 			const result = await response.json()
 			setData(result)
+			setNextPage(result.nextPage)
 			return () => {
 				setData(null)
 			}
 		}
 		handleFetchData()
 	}, [url])
-	return { data }
+	return { data, nextPage }
 }
