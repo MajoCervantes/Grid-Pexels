@@ -9,7 +9,7 @@ export const favsReducer = (state = initialState, action) => {
         case favsTypes.ADD_FAVS:
             return {
                 ...state,
-                favData: action.payload.newFavData ? state.favsData.filter(item => item.id !== action.payload.info.id) : [ ...state.favsData, action.payload.info ]
+                favsData: action.payload.newFavData ? state.favsData.filter(item => item.id !== action.payload.info.id) : [ ...state.favsData, action.payload.info ]
             };
 
         default:

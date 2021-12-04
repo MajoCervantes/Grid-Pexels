@@ -3,47 +3,42 @@ import { useDispatch } from "react-redux"
 
 //Icons
 import { BsSuitHeartFill } from "react-icons/bs"
-import { BsSuitHeart } from "react-icons/bs"
-
-//Styles
-import "./grid.styles.css"
 
 //Actions
 import { handleAddFavs } from "../../actions/favs.action"
 
-const Grid = ({ data, isFavData }) => {
-	// const dispatch = useDispatch()
+//Styles
+import "./grid.styles.css"
 
-	// const handleAddFavData = () => {
-	// 	dispatch(handleAddFavs(data, isFavData))
-	// }
+const Grid = ({ data, newFavData }) => {
+	console.log(data)
+	const dispatch = useDispatch()
+
+	const handleAddFavData = () => {
+		dispatch(handleAddFavs(data, newFavData))
+	}
+
 	return (
 		<>
-			{data?.map((item) => (
-				<div
-					className='img-container'
-					key={item.id}>
-					<div className='second-container'>
-						<img
-							src={item?.src.large}
-							alt='img'
+			<div
+				className='img-container'
+				key={data.id}>
+				<div className='second-container'>
+					<img src={data?.src.large} alt='img' />
+					<div className='flex justify-evenly items-center'>
+						<h2>{data?.photographer}</h2>
+
+						<BsSuitHeartFill
+							onClick={handleAddFavData}
+							className={`${
+								newFavData
+									? "text-red-500"
+									: "text-black"
+							}`}
 						/>
-						{/* {isFavData.some(
-							(photo) => photo.id === item.id
-						)(
-							isFavData ? (
-								<BsSuitHeartFill
-									onClick={handleAddFavData}
-								/>
-							) : (
-								<BsSuitHeart
-									onClick={handleAddFavData}
-								/>
-							)
-						)} */}
 					</div>
 				</div>
-			))}
+			</div>
 		</>
 	)
 }

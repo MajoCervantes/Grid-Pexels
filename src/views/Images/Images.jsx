@@ -22,14 +22,16 @@ const Images = () => {
 	return (
 		<>
 			<div className='mb-9 mt-9 text-center'>
-				<input
-					className='text-center mb-10'
-					type='text'
-					placeholder='Buscar'
-					onChange={({ target }) =>
-						handleInput(target)
-					}
-				/>
+				<form className='w-full m-auto flex flex-col justify-center items-center px-15 py-10 '>
+					<input
+						className='w-1/4 mb-10 py-2 px-1 text-blue text-center outline-none border border-blue'
+						type='text'
+						placeholder='Buscar'
+						onChange={({ target }) =>
+							handleInput(target)
+						}
+					/>
+				</form>
 			</div>
 
 			<div className='container'>

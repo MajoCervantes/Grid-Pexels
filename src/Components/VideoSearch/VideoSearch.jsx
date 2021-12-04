@@ -6,14 +6,16 @@ const VideoSearch = ({ pexelVideos }) => {
 	return (
 		<>
 			{pexelVideos?.map((item) => (
-				<div>
-					<ReactPlayer
-						key={item?.id}
-						url={item?.url}
-						playing
-						width='100%'
-						height='100%'
-					/>
+				<div key={item.id}>
+					{item?.video_files.map((v) => (
+						<ReactPlayer
+							key={v?.id}
+							url={v?.link}
+							playing
+							width='100%'
+							height='100%'
+						/>
+					))}
 				</div>
 			))}
 		</>

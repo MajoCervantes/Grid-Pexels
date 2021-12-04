@@ -13,10 +13,10 @@ const Videos = () => {
 		`https://api.pexels.com/videos/search?query=${video}&per_page=20`
 	)
 
-	const handleInput = ({ value }) =>
+	const handleInput = ({ value }) => {
 		setVideo(value)
+	}
 
-	// console.log(data)
 	return (
 		<>
 			<input
@@ -27,7 +27,7 @@ const Videos = () => {
 				}
 			/>
 
-			<VideoSearch pexelVideos={data?.videos} />
+			<VideoSearch pexelVideos={data.videos} />
 		</>
 	)
 }
