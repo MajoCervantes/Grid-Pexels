@@ -28,18 +28,16 @@ const Grid = ({
 	}
 
 	const callbackFunction = (entries) => {
-		// console.log(entries);
 		const [entry] = entries
 		setView(entry.isIntersecting)
 	}
 
-	const options = {
-		root: null,
-		rootMargin: "0px",
-		threshold: 1.0,
-	}
-
 	useEffect(() => {
+		const options = {
+			root: null,
+			rootMargin: "0px",
+			threshold: 1.0,
+		}
 		if (data?.length > 29) {
 			const observer = new IntersectionObserver(
 				callbackFunction,
@@ -49,7 +47,7 @@ const Grid = ({
 				observer.observe(containerRef.current)
 			}
 		}
-	}, [containerRef, options, data])
+	}, [containerRef, data])
 
 	useEffect(() => {
 		if (view) {
@@ -80,7 +78,10 @@ const Grid = ({
 			</div>
 			<div
 				ref={containerRef}
-				style={{ height: "20px" }}></div>
+				style={{ height: "40px" }}></div>
+			{/* <button onClick={handleNextPage()}>
+				More
+			</button> */}
 		</>
 	)
 }

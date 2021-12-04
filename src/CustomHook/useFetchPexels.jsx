@@ -13,12 +13,14 @@ export const useFetchPexels = (url) => {
 			})
 			const result = await response.json()
 			setData(result)
-			setNextPage(result.nextPage)
+			setNextPage(result.next_page)
+
 			return () => {
 				setData(null)
 			}
 		}
 		handleFetchData()
 	}, [url])
-	return { data, nextPage }
+
+	return { data, nextPage, setData, setNextPage }
 }

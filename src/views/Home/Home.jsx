@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+// import React, { useState } from "react"
 import { useSelector } from "react-redux"
 
 //CustomHook
@@ -8,16 +8,14 @@ import { useFetchPexels } from "../../CustomHook/useFetchPexels"
 import Grid from "../../Components/Grid/Grid"
 
 const Home = () => {
-	const [next, setNext] = useState("")
-	const [nextDada, setNextDada] = useState(null)
-
 	const { newFavData } = useSelector(
 		(store) => store.favs
 	)
 
-	const { data, nextPage } = useFetchPexels(
-		`https://api.pexels.com/v1/search?query=nature&per_page=30`
-	)
+	const { data, nextPage, setData, setNextPage } =
+		useFetchPexels(
+			`https://api.pexels.com/v1/search?query=nature&per_page=30`
+		)
 	// console.log(data)
 
 	const handleNextPage = async () => {
@@ -28,14 +26,16 @@ const Home = () => {
 			},
 		})
 		const result = await response.json()
-		setNext(result.next_page)
-		setNextDada([...data, ...result.photos])
+
+		setNextPage(result.next_page)
+		setData([...data, ...result.photos])
 	}
 
 	return (
 		<div className='container'>
 			{data.photos?.map((item) => (
 				<Grid
+					key={item.id}
 					data={item}
 					handleNextPage={handleNextPage}
 					newFavData={newFavData?.some(
